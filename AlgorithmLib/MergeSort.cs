@@ -1,59 +1,70 @@
 ﻿namespace AlgorithmLib;
 public static class MergeSort
 {
-    // This method performs the merging of two sorted subarrays within 'data'.
+    // This method is responsible for merging two sorted subarrays (from 'first' to 'mid' and from 'mid + 1' to 'last')
     private static void Merge(List<IComparable> data, int first, int mid, int last)
     {
-        int leftIndex = first;   // Index for the left subarray.
-        int rightIndex = mid + 1; // Index for the right subarray.
+        // Create two temporary lists to hold the elements of the subarrays to be merged
+        IList<IComparable> set_1 = new List<IComparable>(data).GetRange(first, mid - first + 1);
+        IList<IComparable> set_2 = new List<IComparable>(data).GetRange(mid + 1, last - mid);
 
-        while (leftIndex <= mid && rightIndex <= last)
+        // Initialize indices for traversing the two subarrays and the merged array
+        var index_1 = 0;
+        var index_2 = 0;
+
+        // Iterate through the merged array
+        for (var middle_Index = first; middle_Index <= last; middle_Index++)
         {
-            if (data[leftIndex].CompareTo(data[rightIndex]) > 0)
+            // If we have exhausted all elements in set_1, use elements from set_2
+            if (index_1 >= set_1.Count)
             {
-                // If the element on the left is greater than the element on the right,
-                // we shift elements from left to right to maintain order.
-
-                IComparable temp = data[rightIndex];
-                for (int i = rightIndex; i > leftIndex; i--)
-                {
-                    data[i] = data[i - 1];
-                }
-
-                data[leftIndex] = temp;
-
-                // Update indices for the next iteration.
-                leftIndex++;
-                mid++;
-                rightIndex++;
+                data[middle_Index] = set_2[index_2];
+                index_2++;
             }
+            // If we have exhausted all elements in set_2, use elements from set_1
+            else if (index_2 >= set_2.Count)
+            {
+                data[middle_Index] = set_1[index_1];
+                index_1++;
+            }
+            // If the current element in set_1 is smaller than the current element in set_2, use the element from set_1
+            else if (set_1[index_1].CompareTo(set_2[index_2]) < 0)
+            {
+                data[middle_Index] = set_1[index_1];
+                index_1++;
+            }
+            // If the current element in set_2 is smaller or equal to the current element in set_1, use the element from set_2
             else
             {
-                // Move to the next element in the left subarray.
-                leftIndex++;
+                data[middle_Index] = set_2[index_2];
+                index_2++;
             }
         }
     }
 
-    // Public method to start the sorting process.
+    // Public method to start the sorting process by calling the private 'Sort' method
     public static void Sort(List<IComparable> data)
     {
         Sort(data, 0, data.Count - 1);
     }
-    
-    // Add another sort that included int first and int last and this helper method for recursive sorting.
+
+    // private method to perform the merge sort
     private static void Sort(List<IComparable> data, int first, int last)
     {
+        // Base case: If 'first' is less than 'last', continue dividing the array
         if (first < last)
         {
+            // Calculate the middle index
             int mid = (first + last) / 2;
 
-            // Recursively sort the left and right halves.
+            // Recursively sort the left and right subarrays
             Sort(data, first, mid);
             Sort(data, mid + 1, last);
 
-            // Merge the sorted halves.
+            // Merge the sorted subarrays
             Merge(data, first, mid, last);
         }
     }
+
 }
+
