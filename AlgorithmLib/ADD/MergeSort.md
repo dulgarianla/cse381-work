@@ -55,4 +55,4 @@ Output: `SORT(data, first, last)` sorts the elements within the specified subarr
 
 * Worst Case: $O(n log n)$
 
-* Best Case: $\Omega(n)$
+* Best Case: $\Omega(n log n)s$
