@@ -9,10 +9,10 @@ public static class DAGTopologicalSort
     public static List<int> Sort(Graph g)
     {
         // Create an array to store the in-degrees of each vertex in the graph.
-        int[] inDegree = new int[g.Size()];
+        int[] in_Degree = new int[g.Size()];
 
         // Create a list to store the linear order (topological order) of vertices.
-        List<int> linearOrder = new List<int>();
+        List<int> linear_Order = new List<int>();
 
         // Calculate the in-degrees of each vertex by iterating through the graph.
         for (int vertex = 0; vertex < g.Size(); vertex++)
@@ -21,7 +21,7 @@ public static class DAGTopologicalSort
             foreach (Edge edge in g.Edges(vertex))
             {
                 // Increment the in-degree of the destination vertex.
-                inDegree[edge.DestId]++;
+                in_Degree[edge.DestId]++;
             }
         }
 
@@ -31,7 +31,7 @@ public static class DAGTopologicalSort
         // Initialize the queue with vertices that have in-degrees equal to zero.
         for (int vertex = 0; vertex < g.Size(); vertex++)
         {
-            if (inDegree[vertex] == 0)
+            if (in_Degree[vertex] == 0)
             {
                 next.Enqueue(vertex);
             }
@@ -44,16 +44,16 @@ public static class DAGTopologicalSort
             int vertex = next.Dequeue();
 
             // Add the vertex to the linear order.
-            linearOrder.Add(vertex);
+            linear_Order.Add(vertex);
 
             // Update the in-degrees of neighboring vertices.
             foreach (Edge edge in g.Edges(vertex))
             {
                 // Decrement the in-degree of the destination vertex.
-                inDegree[edge.DestId]--;
+                in_Degree[edge.DestId]--;
 
                 // If the in-degree becomes zero, enqueue the vertex for processing.
-                if (inDegree[edge.DestId] == 0)
+                if (in_Degree[edge.DestId] == 0)
                 {
                     next.Enqueue(edge.DestId);
                 }
@@ -61,6 +61,6 @@ public static class DAGTopologicalSort
         }
 
         // Return the linear order (topological order) of the vertices.
-        return linearOrder;
+        return linear_Order;
     }
 }
