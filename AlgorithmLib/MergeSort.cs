@@ -1,7 +1,6 @@
 ﻿namespace AlgorithmLib;
 public static class MergeSort
 {
-    // This method is responsible for merging two sorted subarrays (from 'first' to 'mid' and from 'mid + 1' to 'last')
     private static void Merge(List<IComparable> data, int first, int mid, int last)
     {
         // Create two temporary lists to hold the elements of the subarrays to be merged

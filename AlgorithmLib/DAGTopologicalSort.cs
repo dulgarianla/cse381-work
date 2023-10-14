@@ -4,7 +4,6 @@ namespace AlgorithmLib;
 
 public static class DAGTopologicalSort
 {
-    // This class provides a method for topological sorting of a Directed Acyclic Graph (DAG).
 
     public static List<int> Sort(Graph g)
     {
