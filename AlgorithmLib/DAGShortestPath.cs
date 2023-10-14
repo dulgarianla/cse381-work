@@ -3,7 +3,6 @@ namespace AlgorithmLib;
 
 public static class DAGShortestPath
 {
-    // This class provides a method for finding the shortest path in a Directed Acyclic Graph (DAG).
 
     public static (List<int> distance, List<int> pred) ShortestPath(Graph g, int startVertex)
     {
