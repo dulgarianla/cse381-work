@@ -4,7 +4,6 @@ namespace AlgorithmLib;
 
 public static class DAGTopologicalSort
 {
-
     public static List<int> Sort(Graph g)
     {
         // Create an array to store the in-degrees of each vertex in the graph.
